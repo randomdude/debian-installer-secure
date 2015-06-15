@@ -1,0 +1,37 @@
+diff -ur old/DEBIAN/postinst new/DEBIAN/postinst
+--- old/DEBIAN/postinst	2014-09-24 06:16:34.000000000 +0100
++++ new/DEBIAN/postinst	2015-06-15 01:31:43.884000000 +0100
+@@ -11,7 +11,13 @@
+ 
+ dhcp_url=$(dhcp_preseed_url)
+ if [ -n "$dhcp_url" ]; then
+-	preseed_location "$dhcp_url"
++	db_input critical preseed/accept_preseed_from_DHCP || true
++	db_go 
++	db_get preseed/accept_preseed_from_DHCP
++	use_dhcp_url=$RET
++	if [ "$use_dhcp_url" == "true" ]; then
++		preseed_location "$dhcp_url"
++	fi
+ fi
+ preseed preseed/url
+ preseed_command preseed/early_command
+diff -ur old/DEBIAN/templates new/DEBIAN/templates
+--- old/DEBIAN/templates	2014-09-24 06:16:33.000000000 +0100
++++ new/DEBIAN/templates	2015-06-15 01:24:27.396000000 +0100
+@@ -1048,3 +1048,13 @@
+ Default: d-i/jessie/./preseed.cfg
+ Description: for internal use; can be preseeded
+  Path added to local server to give the preseed root
++
++Template: preseed/accept_preseed_from_DHCP
++Type: boolean
++Default: false
++Description: Should we accept a preseed URL from a DHCP server?
++ Your DHCP server has provided extra commands or customisations to
++ debian-installer. It is possible that these commands were sent by
++ your network administrator; however, it is impossible to verify
++ this, or to ensure they have not been altered by an attacker who
++ already has access to your local network.
+ Template: debian-installer/network-preseed/title
+ 
