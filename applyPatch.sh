@@ -15,7 +15,6 @@ dpkg-deb --build new
 
 # Get the debian-installer source
 apt-get source debian-installer
-# diDir=`find -type d -name debian-installer-\*`
 cd debian-installer*/build
 
 # copy the newly-build udeb into the localdebs dir
@@ -24,6 +23,4 @@ cp ../../new.deb localudebs/network-preseed.deb
 # and build the debian-installer.
 make reallyclean
 fakeroot make build_netboot
-
-#cd ../..
 
