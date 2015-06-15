@@ -18,13 +18,13 @@ to restore the old behaviour of accepting any preseed URL via DHCP.
 
 This has been reported to the debian-installer team, but the team were unwilling
 to change behaviour in case it breaks existing installs.
-See [debian bug 788632] for more information.
+See [debian bug 788632][1] for more information.
 
 To use, run the included script from a debian machine, after installing prereqs:
 
 ```sh
 apt-get build-dep debian-installer
-  apt-get install dh_make
+apt-get install dh_make
 ```
 
 [1]:https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=788634
