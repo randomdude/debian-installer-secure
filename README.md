@@ -23,8 +23,12 @@ See [debian bug 788632][1] for more information.
 To use, run the included script from a debian machine, after installing prereqs:
 
 ```sh
-apt-get build-dep debian-installer
-apt-get install dh_make
+apt-get install dh-make
+```
+
+and adding the following to /etc/apt/sources.list for your repo:
+```sh
+deb http://ftp.uk.debian.org/debian jessie main/debian-installer
 ```
 
 [1]:https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=788634
