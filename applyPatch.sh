@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Install build deps
 apt-get -y build-dep network-preseed
 
