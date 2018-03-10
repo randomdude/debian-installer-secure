@@ -1,7 +1,9 @@
 #!/bin/sh
 
 # Install build deps
-apt-get -y build-dep network-preseed
+apt-get -y build-dep network-preseed debian-installer
+
+apt-get -y install lsb-release fakeroot wget apt-utils libnewt0.52
 
 # Set the DEBIAN_RELEASE and USE_UDEBS_FROM env vars to the current dist codename.
 # They are required by the debian-installer build process.
@@ -13,7 +15,7 @@ export USE_UDEBS_FROM=$codename
 apt-get download network-preseed
 if [ $? -ne 0 ]; then
 	echo "Failed to 'apt-get download network-preseed'."
-	echo "Do you have a line simlar to ' deb http://ftp.uk.debian.org/debian jessie main/debian-installer' in your /etc/apt/sources.list? You should."
+	echo "Do you have a line similar to ' deb http://ftp.uk.debian.org/debian jessie main/debian-installer' in your /etc/apt/sources.list? You should."
 	exit -1
 fi
 
@@ -34,7 +36,7 @@ dpkg-deb --build new
 apt-get source debian-installer
 cd debian-installer*/build
 
-# copy the newly-build udeb into the localdebs dir
+# copy the newly-built udeb into the localdebs dir
 cp ../../new.deb localudebs/network-preseed.deb
 
 # and build the debian-installer.
